@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Load Gilroy Web Fonts from Swiggy CDN */
+@font-face {
+  font-family: "Gilroy";
+  src: url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-ExtraBold.woff2") format("woff2"),
+       url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gilroy";
+  src: url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-Bold.woff2") format("woff2"),
+       url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gilroy";
+  src: url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-SemiBold.woff2") format("woff2"),
+       url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gilroy";
+  src: url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-Medium.woff2") format("woff2"),
+       url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gilroy";
+  src: url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-Regular.woff2") format("woff2"),
+       url("https://media-assets.swiggy.com/dls-web-assets/dls/fonts/Gilroy-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Arial', sans-serif;
+    color: #02060C;
+    background-color: #F4F4F6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Arial', sans-serif;
+    color: #02060C;
+  }
+}
+
+/* Instamart custom scrollbar and utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
