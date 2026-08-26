@@ -104,7 +104,7 @@ export function AppContent() {
       {/* Main Content Area */}
       <main className="flex-1">
         {currentView === 'home' && (
-          <div>
+          <div className="animate-in fade-in duration-300">
             {/* Instamart Hero Showcase */}
             <InstamartHeroBanner
               onShopClick={() => changeView('shop')}

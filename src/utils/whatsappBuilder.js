@@ -34,12 +34,16 @@ export const buildWhatsAppMessage = (cartItems, customerDetails, deliveryLocatio
     if (landmark && landmark.trim()) {
       message += `*Landmark:* ${landmark.trim()}\n`;
     }
-    // If coordinates are available, provide a direct Google Maps pin link
+    
+    // Direct Google Maps link matching the exact location
     if (deliveryLocation?.latitude && deliveryLocation?.longitude) {
-      message += `*Google Maps Pin:* https://maps.google.com/?q=${deliveryLocation.latitude},${deliveryLocation.longitude}\n`;
-      if (deliveryLocation.shortAddress) {
-        message += `*Area / Mandal:* ${deliveryLocation.shortAddress}\n`;
+      message += `*Google Maps Pin:* https://www.google.com/maps/search/?api=1&query=${deliveryLocation.latitude},${deliveryLocation.longitude}\n`;
+      if (deliveryLocation.shortAddress || deliveryLocation.village) {
+        message += `*Locality / Mandal:* ${deliveryLocation.shortAddress || deliveryLocation.village}\n`;
       }
+    } else if (address && address.trim()) {
+      const mapsQuery = encodeURIComponent(`${address.trim()}, Andhra Pradesh`);
+      message += `*Google Maps Search:* https://www.google.com/maps/search/?api=1&query=${mapsQuery}\n`;
     }
   }
   

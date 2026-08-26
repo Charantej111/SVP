@@ -214,60 +214,41 @@ export const useLocationDetection = (initialLocation = null) => {
 
   /**
    * Selects an address found via search.
+   * Immediately uses exact verified coordinates and structured details without
+   * letting third-party reverse geocoder overwrite the user's specific selection.
    */
-  const selectSearchedPlace = useCallback(async (place) => {
+  const selectSearchedPlace = useCallback((place) => {
     cleanupWatcher();
     cancelActiveRequest();
-    setStatus('reverse_geocoding');
 
-    abortControllerRef.current = new AbortController();
+    const locationData = {
+      latitude: typeof place.latitude === 'number' ? place.latitude : parseFloat(place.latitude),
+      longitude: typeof place.longitude === 'number' ? place.longitude : parseFloat(place.longitude),
+      accuracy: 10,
+      accuracyCategory: 'excellent',
+      accuracyLabel: place.isSpvPriority ? 'Direct Delivery Locality' : 'Verified Address',
+      accuracyDescription: place.isSpvPriority 
+        ? 'Verified delivery locality for SPV Super Bazaar'
+        : 'Address selected from search',
+      formattedAddress: place.fullAddress || place.formattedAddress || place.title || 'Selected Delivery Location',
+      shortAddress: place.shortAddress || place.title || 'Delivery Location',
+      houseNumber: place.houseNumber || '',
+      street: place.street || '',
+      area: place.area || '',
+      village: place.village || place.title || '',
+      mandal: place.mandal || '',
+      district: place.district || 'Dr. B. R. Ambedkar Konaseema',
+      state: place.state || 'Andhra Pradesh',
+      postalCode: place.postalCode || '',
+      country: place.country || 'India',
+      source: place.isSpvPriority ? 'spv_priority' : 'search',
+      isSpvServiceArea: true,
+      spvLocationId: place.id || null,
+      timestamp: Date.now()
+    };
 
-    try {
-      // Reverse geocode to ensure complete address breakdown and canonical details
-      const locationData = await reverseGeocode(
-        place.latitude,
-        place.longitude,
-        place.accuracy || null,
-        'search',
-        abortControllerRef.current.signal
-      );
-
-      if (!isMountedRef.current) return;
-
-      // Preserve any search title specifics
-      if (place.title && !locationData.shortAddress) {
-        locationData.shortAddress = place.title;
-      }
-
-      setDetectedLocation(locationData);
-      setStatus('confirming');
-    } catch (err) {
-      if (err.name === 'AbortError') return;
-      if (!isMountedRef.current) return;
-
-      // Direct fallback using search place object
-      setDetectedLocation({
-        latitude: place.latitude,
-        longitude: place.longitude,
-        accuracy: null,
-        accuracyCategory: 'acceptable',
-        accuracyLabel: 'Searched Place',
-        formattedAddress: place.fullAddress || place.title,
-        shortAddress: place.title || place.shortAddress,
-        houseNumber: place.houseNumber || '',
-        street: place.street || '',
-        area: place.area || '',
-        village: place.village || '',
-        city: place.city || '',
-        district: place.district || '',
-        state: place.state || 'Andhra Pradesh',
-        postalCode: place.postalCode || '',
-        country: place.country || 'India',
-        source: 'search',
-        timestamp: Date.now()
-      });
-      setStatus('confirming');
-    }
+    setDetectedLocation(locationData);
+    setStatus('confirming');
   }, [cleanupWatcher, cancelActiveRequest]);
 
   /**
