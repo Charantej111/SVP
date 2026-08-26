@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag } from 'lucide-react';
+import banner1 from '../../assets/banner_1.png';
+import banner2 from '../../assets/banner_2.png';
+import banner3 from '../../assets/Banner_3.png';
 
 export const InstamartHeroBanner = ({ onShopClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const bannerImages = [
-    '/banner.png',
-    '/banner_2.png',
-    '/Banner_3.png'
+    banner1,
+    banner2,
+    banner3
   ];
 
   useEffect(() => {
