@@ -2,9 +2,9 @@ import { STORE_CONFIG } from '../config/storeConfig';
 import { formatPrice } from './formatters';
 
 /**
- * Generates formatted WhatsApp order message and direct link
+ * Generates formatted WhatsApp order message and direct link with delivery location coordinates & map link
  */
-export const buildWhatsAppMessage = (cartItems, customerDetails) => {
+export const buildWhatsAppMessage = (cartItems, customerDetails, deliveryLocation = null) => {
   const { name, phone, orderType, address, landmark, instructions } = customerDetails;
   
   // Calculate total items count and subtotal
@@ -22,15 +22,24 @@ export const buildWhatsAppMessage = (cartItems, customerDetails) => {
   message += `--- *ORDER ITEMS* ---\n`;
   message += `${itemsText}\n\n`;
   message += `*Total Estimated Subtotal:* ${formatPrice(subtotal)} (${totalItemCount} ${totalItemCount === 1 ? 'item' : 'items'})\n\n`;
-  message += `--- *CUSTOMER DETAILS* ---\n`;
+  message += `--- *CUSTOMER & DELIVERY DETAILS* ---\n`;
   message += `*Name:* ${name.trim()}\n`;
   message += `*Phone:* ${phone.trim()}\n`;
   message += `*Order Type:* ${orderType === 'delivery' ? 'Home Delivery' : 'Store Pickup'}\n`;
   
-  if (orderType === 'delivery' && address) {
-    message += `*Delivery Address:* ${address.trim()}\n`;
+  if (orderType === 'delivery') {
+    if (address) {
+      message += `*Delivery Address:* ${address.trim()}\n`;
+    }
     if (landmark && landmark.trim()) {
       message += `*Landmark:* ${landmark.trim()}\n`;
+    }
+    // If coordinates are available, provide a direct Google Maps pin link
+    if (deliveryLocation?.latitude && deliveryLocation?.longitude) {
+      message += `*Google Maps Pin:* https://maps.google.com/?q=${deliveryLocation.latitude},${deliveryLocation.longitude}\n`;
+      if (deliveryLocation.shortAddress) {
+        message += `*Area / Mandal:* ${deliveryLocation.shortAddress}\n`;
+      }
     }
   }
   
@@ -47,8 +56,8 @@ export const buildWhatsAppMessage = (cartItems, customerDetails) => {
 /**
  * Creates the complete wa.me URL
  */
-export const createWhatsAppUrl = (cartItems, customerDetails) => {
-  const message = buildWhatsAppMessage(cartItems, customerDetails);
+export const createWhatsAppUrl = (cartItems, customerDetails, deliveryLocation = null) => {
+  const message = buildWhatsAppMessage(cartItems, customerDetails, deliveryLocation);
   const encodedText = encodeURIComponent(message);
   
   const targetNumber = STORE_CONFIG.contact.whatsappNumber 

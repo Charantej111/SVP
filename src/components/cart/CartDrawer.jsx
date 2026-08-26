@@ -29,11 +29,11 @@ export const CartDrawer = () => {
       />
 
       {/* Drawer Panel */}
-      <div className="absolute inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
-        <div className="w-screen max-w-md bg-white flex flex-col shadow-2xl">
+      <div className="absolute inset-y-0 right-0 w-full sm:max-w-md flex pl-0">
+        <div className="w-full bg-white flex flex-col shadow-2xl h-full overflow-hidden">
           
           {/* Header */}
-          <div className="p-5 sm:p-6 border-b border-gray-100 bg-gray-50/70 flex items-center justify-between">
+          <div className="p-4 sm:p-5 border-b border-gray-100 bg-gray-50/70 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-brand-800 text-white flex items-center justify-center">
                 <ShoppingBag className="w-4 h-4" />
@@ -141,7 +141,7 @@ export const CartDrawer = () => {
 
           {/* Footer Area */}
           {cartItems.length > 0 && (
-            <div className="p-5 sm:p-6 border-t border-gray-100 bg-gray-50/70 space-y-4">
+            <div className="p-4 sm:p-5 border-t border-gray-100 bg-gray-50/90 shrink-0 space-y-3.5 pb-6 sm:pb-6">
               
               {/* Subtotal breakdown */}
               <div className="space-y-1.5 text-xs">
@@ -149,9 +149,9 @@ export const CartDrawer = () => {
                   <span>Total Items:</span>
                   <span className="font-bold text-gray-900">{totalItemsCount} units</span>
                 </div>
-                <div className="flex justify-between text-base font-bold text-gray-900 pt-2 border-t border-gray-200">
+                <div className="flex justify-between items-center text-base font-bold text-gray-900 pt-2 border-t border-gray-200">
                   <span>Estimated Subtotal:</span>
-                  <span className="text-brand-800 font-extrabold text-lg">{formatPrice(subtotal)}</span>
+                  <span className="text-brand-800 font-extrabold text-lg sm:text-xl">{formatPrice(subtotal)}</span>
                 </div>
               </div>
 
@@ -162,10 +162,10 @@ export const CartDrawer = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 space-y-2">
+              <div className="pt-1 space-y-2">
                 <button
                   onClick={openCheckout}
-                  className="w-full bg-brand-800 hover:bg-brand-900 text-white font-bold text-sm py-3.5 px-4 rounded-xl transition-all shadow-subtle flex items-center justify-center gap-2 active:scale-[0.99]"
+                  className="w-full bg-brand-800 hover:bg-brand-900 text-white font-bold text-sm py-3.5 px-4 rounded-xl transition-all shadow-subtle flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer"
                 >
                   <span>Continue to Customer Details</span>
                   <ArrowRight className="w-4 h-4" />
@@ -173,7 +173,7 @@ export const CartDrawer = () => {
 
                 <button
                   onClick={clearCart}
-                  className="w-full text-center text-xs font-semibold text-gray-400 hover:text-red-600 transition-colors py-1"
+                  className="w-full text-center text-xs font-semibold text-gray-400 hover:text-red-600 transition-colors py-1 cursor-pointer"
                 >
                   Clear all items
                 </button>

@@ -59,6 +59,19 @@ export const OrderSuccessModal = () => {
             <span>Open in WhatsApp & Press Send</span>
           </a>
 
+          {/* Delivery Location Preview */}
+          {customerDetails?.orderType === 'delivery' && (customerDetails.address || orderSuccessData.deliveryLocation?.shortAddress) && (
+            <div className="p-3 bg-emerald-50/80 border border-emerald-200 rounded-xl flex items-start gap-2.5 text-xs text-emerald-950">
+              <ShoppingBag className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+              <div className="min-w-0">
+                <span className="font-bold">Delivery Address Attached: </span>
+                <span className="text-gray-700 font-medium">
+                  {customerDetails.address || orderSuccessData.deliveryLocation?.formattedAddress}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Fallback Copy Text Box */}
           <div>
             <div className="flex items-center justify-between text-xs font-bold text-spv-dark uppercase tracking-wider mb-1.5">

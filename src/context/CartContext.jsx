@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getSavedDeliveryLocation, saveDeliveryLocationToStorage } from '../utils/locationUtils';
 
 const CartContext = createContext(null);
 
 const CART_STORAGE_KEY = 'spv_superbazaar_cart_v1';
 const CUSTOMER_STORAGE_KEY = 'spv_superbazaar_customer_v1';
-const LOCATION_STORAGE_KEY = 'spv_superbazaar_location_v1';
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
@@ -40,13 +40,14 @@ export const CartProvider = ({ children }) => {
     }
   });
 
-  const [userLocation, setUserLocation] = useState(() => {
-    try {
-      const saved = localStorage.getItem(LOCATION_STORAGE_KEY);
-      return saved || 'Ramavaram, Kutukuluru';
-    } catch (e) {
-      return 'Ramavaram, Kutukuluru';
-    }
+  const [deliveryLocation, setDeliveryLocationState] = useState(() => {
+    const saved = getSavedDeliveryLocation();
+    return saved;
+  });
+
+  const [userLocation, setUserLocationState] = useState(() => {
+    const saved = getSavedDeliveryLocation();
+    return saved?.shortAddress || saved?.formattedAddress || 'Ramavaram, Kutukuluru';
   });
 
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
@@ -65,11 +66,32 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
-  // Save location to localStorage
-  const setAndSaveLocation = (loc) => {
-    setUserLocation(loc);
+  // Save confirmed structured location
+  const setDeliveryLocation = (locationObj) => {
+    if (!locationObj) return;
+
+    // If string passed for backwards compatibility
+    if (typeof locationObj === 'string') {
+      const formatted = {
+        latitude: 16.9405,
+        longitude: 81.9982,
+        accuracy: null,
+        formattedAddress: locationObj,
+        shortAddress: locationObj.split(',')[0].trim(),
+        source: 'manual',
+        timestamp: Date.now()
+      };
+      setDeliveryLocationState(formatted);
+      setUserLocationState(locationObj);
+      saveDeliveryLocationToStorage(formatted);
+    } else {
+      setDeliveryLocationState(locationObj);
+      const shortText = locationObj.shortAddress || locationObj.formattedAddress || 'Selected Location';
+      setUserLocationState(shortText);
+      saveDeliveryLocationToStorage(locationObj);
+    }
+
     try {
-      localStorage.setItem(LOCATION_STORAGE_KEY, loc);
       sessionStorage.setItem('spv_has_seen_location_modal', 'true');
     } catch (e) {
       console.error(e);
@@ -189,8 +211,10 @@ export const CartProvider = ({ children }) => {
         closeCheckout: () => setIsCheckoutOpen(false),
         orderSuccessData,
         setOrderSuccessData,
+        deliveryLocation,
+        setDeliveryLocation,
         userLocation,
-        setUserLocation: setAndSaveLocation,
+        setUserLocation: setDeliveryLocation,
         isLocationModalOpen,
         openLocationModal: () => setIsLocationModalOpen(true),
         closeLocationModal

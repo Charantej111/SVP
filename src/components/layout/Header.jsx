@@ -5,7 +5,10 @@ import { useCart } from '../../context/CartContext';
 import { formatPrice } from '../../utils/formatters';
 
 export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuery }) => {
-  const { totalItemsCount, subtotal, openCart, userLocation, openLocationModal } = useCart();
+  const { totalItemsCount, subtotal, openCart, userLocation, deliveryLocation, openLocationModal } = useCart();
+
+  const displayLocation = deliveryLocation?.shortAddress || userLocation || "Add your location";
+  const displayShortMobile = (deliveryLocation?.shortAddress || userLocation || "Location").split(',')[0].trim();
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-[#E2E2E7] shadow-2xs w-full max-w-full overflow-x-hidden">
@@ -38,7 +41,7 @@ export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuer
           >
             <div className="hidden md:block">
               <div className="flex items-center gap-1 font-extrabold text-[14px] text-brand-800 leading-none group-hover:underline">
-                <span>{userLocation ? userLocation : "Add your location"}</span>
+                <span className="max-w-[200px] truncate">{displayLocation}</span>
                 <ChevronDown className="w-4 h-4 text-brand-800 stroke-[3px]" />
               </div>
               <span className="text-[11px] text-[#686B78] font-medium block mt-0.5">
@@ -49,7 +52,7 @@ export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuer
             {/* Mobile Location Badge */}
             <div className="md:hidden flex items-center gap-1 font-extrabold text-[12px] sm:text-[13px] text-brand-800 bg-brand-50 border border-brand-100 px-2 sm:px-2.5 py-1.5 rounded-xl">
               <MapPin className="w-3.5 h-3.5 text-brand-800 fill-current text-brand-800/20" />
-              <span className="max-w-[100px] sm:max-w-[120px] truncate">{userLocation ? userLocation.split(',')[0] : "Location"}</span>
+              <span className="max-w-[100px] sm:max-w-[120px] truncate">{displayShortMobile}</span>
               <ChevronDown className="w-3 h-3 text-brand-800 stroke-[2.5px]" />
             </div>
           </button>
