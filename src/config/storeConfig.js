@@ -10,6 +10,8 @@ export const STORE_CONFIG = {
   location: {
     street: "Kutukuluru Rd, Ramavaram",
     village: "Kutukuluru",
+    mandal: "Anaparthi / Rayavaram Mandal",
+    district: "Dr. B. R. Ambedkar Konaseema District",
     state: "Andhra Pradesh",
     pincode: "533264",
     fullAddress: "Kutukuluru Rd, Ramavaram, Kutukuluru, Andhra Pradesh 533264",
@@ -28,6 +30,16 @@ export const STORE_CONFIG = {
     
     // Store working hours
     timings: "7:00 AM – 9:30 PM (Open 7 Days)",
+  },
+
+  leadership: {
+    title: "Proprietorship",
+    proprietor: "Padala Venkata Jayapal Reddy",
+    proprietorRole: "Proprietor",
+    storeManager: "Customer Service & Dispatch Desk",
+    establishedLocation: "Kutukuluru Road, Ramavaram",
+    directPhone: "+91 95516 24444",
+    directWhatsApp: "919551624444"
   },
   
   policies: {

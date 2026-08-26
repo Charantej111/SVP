@@ -26,20 +26,20 @@ export const LocationConfirmation = ({
         {/* Top meta tags */}
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wide bg-brand-800 text-white">
-              <Sparkles className="w-3 h-3" />
-              {location.source === 'gps' ? 'GPS Detected' : location.source === 'map' ? 'Pin Adjusted' : 'Search Selected'}
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200/80">
+              <MapPin className="w-3 h-3" />
+              {location.source === 'gps' ? 'GPS Location' : location.source === 'map' ? 'Pin Location' : 'Selected Location'}
             </span>
           </div>
 
           {/* Accuracy Badge */}
           {typeof location.accuracy === 'number' && (
-            <div className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+            <div className={`flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-semibold ${
               isPoorAccuracy
-                ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                ? 'bg-amber-100 text-amber-900 border border-amber-300'
                 : accuracyInfo.category === 'excellent'
-                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                : 'bg-brand-100 text-brand-800 border border-brand-200'
+                ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                : 'bg-gray-100 text-gray-800 border border-gray-200'
             }`}>
               {isPoorAccuracy ? (
                 <AlertTriangle className="w-3 h-3 text-amber-600" />

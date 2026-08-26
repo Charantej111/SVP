@@ -1,111 +1,204 @@
 import React from 'react';
-import { ShieldCheck, HeartHandshake, Truck } from 'lucide-react';
+import { 
+  Store, 
+  MapPin, 
+  Phone, 
+  Clock, 
+  Navigation, 
+  ShoppingBag, 
+  MessageCircle, 
+  ArrowLeft, 
+  Building2,
+  CheckCircle2,
+  ShieldCheck,
+  User
+} from 'lucide-react';
 import { STORE_CONFIG } from '../../config/storeConfig';
 
-export const AboutPage = ({ onShopClick, onContactClick }) => {
+const STORE_PHOTOS = [
+  {
+    id: 'front',
+    title: 'Storefront & Customer Parking',
+    src: '/store_front.jpg',
+    fallback: '/banner.png'
+  },
+  {
+    id: 'aisles',
+    title: 'Grocery & Staples Aisles',
+    src: '/store_aisles.jpg',
+    fallback: '/banner_2.png'
+  },
+  {
+    id: 'dairy',
+    title: 'Fresh Dairy & Daily Essentials',
+    src: '/store_dairy.jpg',
+    fallback: '/Banner_3.png'
+  }
+];
+
+export const AboutPage = ({ onShopClick }) => {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 md:py-16">
+    <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
       
-      {/* Header with Official Logo */}
-      <div className="text-center max-w-2xl mx-auto mb-12">
-        <div className="flex justify-center mb-5">
-          <img 
-            src="/logo.png" 
-            alt={STORE_CONFIG.name} 
-            className="h-20 sm:h-24 w-auto object-contain drop-shadow-sm" 
-          />
-        </div>
-        <div className="text-xs font-bold text-brand-700 uppercase tracking-wider mb-2">
-          Local Supermarket
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
-          About {STORE_CONFIG.name}
-        </h1>
-        <p className="text-sm sm:text-base text-gray-500 mt-3 leading-relaxed">
-          Serving households across Kutukuluru, Ramavaram, and nearby areas with quality groceries, packaged foods, fresh daily essentials and household products.
-        </p>
+      {/* Top Back Link */}
+      <div className="mb-6">
+        <button
+          onClick={onShopClick}
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-emerald-800 transition-colors cursor-pointer"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Groceries</span>
+        </button>
       </div>
 
-      {/* Main Narrative Card */}
-      <div className="bg-white border border-gray-200/80 rounded-3xl p-6 sm:p-10 shadow-card mb-10 space-y-6">
-        <div>
-          <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
-            Your Neighbourhood Supermarket, Now on Your Phone
+      {/* Main About Card */}
+      <div className="bg-white rounded-3xl p-6 sm:p-10 border border-gray-200 shadow-sm space-y-8">
+        
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-gray-100">
+          <div className="flex items-center gap-4">
+            <img
+              src="/logo.png"
+              alt={STORE_CONFIG.name}
+              className="h-16 w-auto object-contain shrink-0"
+            />
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+                {STORE_CONFIG.name}
+              </h1>
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
+                Kutukuluru Road, Ramavaram • PIN 533264
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+            <a
+              href={STORE_CONFIG.location.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-xs"
+            >
+              <Navigation className="w-3.5 h-3.5" />
+              <span>Get Directions</span>
+            </a>
+
+            <a
+              href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-xs"
+            >
+              <MessageCircle className="w-3.5 h-3.5 fill-current" />
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Short & Clean Store Description */}
+        <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
+          <p>
+            <strong>Sri Prasanna Vigneswara Superbazaar</strong> (SPV Super Bazar) is a registered retail supermarket located on Kutukuluru Road, Ramavaram (Konaseema District, Andhra Pradesh).
+          </p>
+          <p>
+            We supply everyday groceries, branded staples (Aashirvaad Atta, Tata Dals, Fortune Oils, Freedom Sunflower Oil), fresh packaged milk & dairy (Heritage, Amul), beverages, biscuits, soaps, detergents, and household cleaning essentials.
+          </p>
+          <p>
+            Customers can shop directly in our Ramavaram store or place orders via WhatsApp for doorstep delivery across surrounding villages.
+          </p>
+        </div>
+
+        {/* Store & Contact Information */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          
+          <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-2 text-xs sm:text-sm">
+            <div className="flex items-start gap-2.5 text-gray-800">
+              <MapPin className="w-4 h-4 text-emerald-800 shrink-0 mt-0.5" />
+              <div>
+                <div className="font-bold text-gray-900">Store Address</div>
+                <div className="text-xs text-gray-600 mt-0.5">{STORE_CONFIG.location.fullAddress}</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2.5 text-gray-800 pt-2 border-t border-gray-200">
+              <Clock className="w-4 h-4 text-emerald-800 shrink-0" />
+              <div>
+                <div className="font-bold text-gray-900">Working Hours</div>
+                <div className="text-xs text-gray-600 mt-0.5">7:00 AM – 9:30 PM (All 7 Days)</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-2 text-xs sm:text-sm">
+            <div className="flex items-start gap-2.5 text-gray-800">
+              <Phone className="w-4 h-4 text-emerald-800 shrink-0 mt-0.5" />
+              <div>
+                <div className="font-bold text-gray-900">Contact / WhatsApp</div>
+                <div className="text-xs text-gray-600 mt-0.5">{STORE_CONFIG.contact.formattedPhone}</div>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5 text-gray-800 pt-2 border-t border-gray-200">
+              <User className="w-4 h-4 text-emerald-800 shrink-0 mt-0.5" />
+              <div>
+                <div className="font-bold text-gray-900">Padala Venkata Jayapal Reddy</div>
+                <div className="text-xs text-gray-600 mt-0.5">Proprietor • Sri Prasanna Vigneswara Superbazaar</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Store Photos */}
+        <div className="pt-2">
+          <h2 className="text-sm font-bold text-gray-900 mb-3">
+            Store Gallery
           </h2>
-          <p className="text-sm text-gray-600 leading-relaxed font-normal">
-            {STORE_CONFIG.name} was established to provide local families in Ramavaram and Kutukuluru with a clean, well-stocked, and organized supermarket experience. Instead of traveling far or waiting in long lines, our customers can find all everyday pantry items, trusted FMCG brands, fresh dairy, and cleaning supplies under one roof.
-          </p>
-        </div>
-
-        <div className="pt-6 border-t border-gray-100">
-          <h3 className="text-base font-bold text-gray-900 mb-3">
-            How Our Online Ordering Works
-          </h3>
-          <p className="text-sm text-gray-600 leading-relaxed font-normal">
-            We believe grocery shopping should be simple and personal. With our digital storefront, you can browse all departments from home, add your items to the cart, specify your delivery address or choose store pickup, and send the complete order directly to our WhatsApp. Our team reviews your items, verifies product stock, and confirms the final bill and delivery time directly with you.
-          </p>
-        </div>
-      </div>
-
-      {/* 3 Core Values Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div className="bg-white border border-gray-200/80 rounded-3xl p-7 shadow-card hover:shadow-card-hover transition-all">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mb-5">
-            <ShieldCheck className="w-6 h-6" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            {STORE_PHOTOS.map((photo) => (
+              <div key={photo.id} className="rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 shadow-xs">
+                <img
+                  src={photo.src}
+                  alt={photo.title}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = photo.fallback;
+                  }}
+                  className="w-full h-44 object-cover"
+                />
+                <div className="p-2.5 text-xs text-gray-700 font-medium text-center bg-white border-t border-gray-100">
+                  {photo.title}
+                </div>
+              </div>
+            ))}
           </div>
-          <h3 className="text-base font-bold text-gray-900 mb-2">
-            100% Genuine Brands
-          </h3>
-          <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-            We stock verified, authentic products from leading manufacturers like Aashirvaad, Tata, Amul, Britannia, Fortune, and Surf Excel.
-          </p>
         </div>
 
-        <div className="bg-white border border-gray-200/80 rounded-3xl p-7 shadow-card hover:shadow-card-hover transition-all">
-          <div className="w-12 h-12 rounded-2xl bg-accent-50 text-accent-600 flex items-center justify-center mb-5">
-            <HeartHandshake className="w-6 h-6" />
+        {/* Service Villages */}
+        <div className="pt-2">
+          <h2 className="text-sm font-bold text-gray-900 mb-2">
+            Delivery Coverage
+          </h2>
+          <div className="flex flex-wrap gap-2 text-xs text-gray-700">
+            {['Ramavaram (533264)', 'Kutukuluru (533264)', 'Someswaram (533261)', 'Machavaram (533261)', 'Rayavaram (533346)', 'Mandapeta (533308)', 'Pasalapudi (533261)', 'Chelluru (533308)'].map((village) => (
+              <span key={village} className="px-3 py-1 bg-emerald-50 text-emerald-900 rounded-lg border border-emerald-200/70 font-medium">
+                {village}
+              </span>
+            ))}
           </div>
-          <h3 className="text-base font-bold text-gray-900 mb-2">
-            Familiar & Friendly
-          </h3>
-          <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-            Personal service from a local team that knows your preferences and values your family’s everyday pantry needs.
-          </p>
         </div>
 
-        <div className="bg-white border border-gray-200/80 rounded-3xl p-7 shadow-card hover:shadow-card-hover transition-all">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center mb-5">
-            <Truck className="w-6 h-6" />
-          </div>
-          <h3 className="text-base font-bold text-gray-900 mb-2">
-            Pickup & Delivery
-          </h3>
-          <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-            Quick zero-wait store counter pickup or possible direct delivery to your address upon store confirmation.
-          </p>
-        </div>
-      </div>
-
-      {/* CTA Box */}
-      <div className="bg-brand-900 text-white rounded-3xl p-8 sm:p-10 text-center space-y-4 shadow-card">
-        <h3 className="text-xl sm:text-2xl font-extrabold">Ready to start shopping?</h3>
-        <p className="text-xs sm:text-sm text-emerald-100 max-w-md mx-auto leading-relaxed">
-          Explore our complete catalogue of grocery items or visit us in person at Kutukuluru Rd, Ramavaram.
-        </p>
-        <div className="flex justify-center gap-4 pt-2">
+        {/* Action button */}
+        <div className="pt-4 border-t border-gray-100 text-center">
           <button
             onClick={onShopClick}
-            className="bg-accent-500 hover:bg-accent-600 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-colors active:scale-95 shadow-subtle"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer"
           >
-            Shop Groceries
-          </button>
-          <button
-            onClick={onContactClick}
-            className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-5 py-3.5 rounded-xl border border-white/20 transition-colors"
-          >
-            Contact Store
+            <ShoppingBag className="w-4 h-4" />
+            <span>Browse Online Products</span>
           </button>
         </div>
+
       </div>
 
     </div>

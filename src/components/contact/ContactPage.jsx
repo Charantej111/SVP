@@ -128,6 +128,11 @@ export const ContactPage = () => {
               </div>
             </div>
 
+            <div className="pt-3 border-t border-gray-100 text-xs text-gray-600">
+              <span className="font-bold text-gray-900">Proprietor: </span>
+              <span>{STORE_CONFIG.leadership.proprietor}</span>
+            </div>
+
             <div className="pt-2">
               <a
                 href={STORE_CONFIG.location.googleMapsUrl}

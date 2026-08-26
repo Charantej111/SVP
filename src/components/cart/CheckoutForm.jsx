@@ -259,24 +259,23 @@ export const CheckoutForm = () => {
               
               {/* Delivery Location Summary Card */}
               {deliveryLocation && (
-                <div className="p-3.5 rounded-2xl bg-brand-50/60 border border-brand-200/80 flex items-start justify-between gap-3">
+                <div className="p-3.5 rounded-2xl bg-emerald-50/50 border border-emerald-200 flex items-start justify-between gap-3">
                   <div className="flex items-start gap-2.5 min-w-0">
-                    <div className="p-2 rounded-xl bg-brand-800 text-white shrink-0 mt-0.5 shadow-2xs">
+                    <div className="p-2 rounded-xl bg-emerald-800 text-white shrink-0 mt-0.5 shadow-2xs">
                       <MapPin className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-xs font-black text-brand-900">
+                        <span className="text-xs font-bold text-gray-900">
                           {deliveryLocation.shortAddress || deliveryLocation.village || 'Delivery Area'}
                         </span>
                         {deliveryLocation.isSpvPriority && (
-                          <span className="inline-flex items-center gap-0.5 text-[9.5px] font-black bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded">
-                            <Sparkles className="w-2.5 h-2.5" />
-                            SPV Area
+                          <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100/80 px-1.5 py-0.5 rounded">
+                            Direct Delivery Area
                           </span>
                         )}
                         {deliveryLocation.accuracy && (
-                          <span className="text-[9.5px] font-bold text-gray-600 bg-white border border-gray-200 px-1.5 py-0.5 rounded">
+                          <span className="text-[10px] font-medium text-gray-600 bg-white border border-gray-200 px-1.5 py-0.5 rounded">
                             ~{Math.round(deliveryLocation.accuracy)}m GPS
                           </span>
                         )}
@@ -293,7 +292,7 @@ export const CheckoutForm = () => {
                       closeCheckout();
                       openLocationModal();
                     }}
-                    className="text-[11px] font-extrabold text-brand-800 hover:text-brand-950 bg-white hover:bg-brand-50 border border-brand-200 px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs"
+                    className="text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-white hover:bg-emerald-50 border border-emerald-200 px-2.5 py-1.5 rounded-xl transition-all flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs"
                   >
                     <Edit3 className="w-3 h-3" />
                     <span>Change</span>

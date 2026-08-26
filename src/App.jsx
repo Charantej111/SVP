@@ -27,10 +27,45 @@ import { CheckoutForm } from './components/cart/CheckoutForm';
 import { OrderSuccessModal } from './components/cart/OrderSuccessModal';
 
 export function AppContent() {
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState(() => {
+    try {
+      const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+      if (['home', 'shop', 'categories', 'about', 'contact'].includes(hash)) {
+        return hash;
+      }
+    } catch {}
+    return 'home';
+  });
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('all');
   const [selectedSubcategory, setSelectedSubcategory] = useState('all');
+
+  // Keep state and URL hash in sync for direct links & back/forward navigation
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+      if (['home', 'shop', 'categories', 'about', 'contact'].includes(hash)) {
+        setCurrentView(hash);
+      } else if (!hash) {
+        setCurrentView('home');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const changeView = (view) => {
+    setCurrentView(view);
+    try {
+      const targetHash = view === 'home' ? '' : `#/${view}`;
+      if (window.location.hash !== targetHash) {
+        window.history.pushState(null, '', targetHash || window.location.pathname);
+      }
+    } catch {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -39,13 +74,13 @@ export function AppContent() {
   const handleSelectDepartment = (deptId) => {
     setSelectedDepartment(deptId);
     setSelectedSubcategory('all');
-    setCurrentView('shop');
+    changeView('shop');
   };
 
   const handleSelectSubcategory = (deptId, subcategoryId) => {
     setSelectedDepartment(deptId);
     setSelectedSubcategory(subcategoryId);
-    setCurrentView('shop');
+    changeView('shop');
   };
 
   // Curated product shelves
@@ -61,7 +96,7 @@ export function AppContent() {
       {/* Global Sticky Header */}
       <Header
         currentView={currentView}
-        setCurrentView={setCurrentView}
+        setCurrentView={changeView}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
@@ -72,13 +107,13 @@ export function AppContent() {
           <div>
             {/* Instamart Hero Showcase */}
             <InstamartHeroBanner
-              onShopClick={() => setCurrentView('shop')}
+              onShopClick={() => changeView('shop')}
             />
 
             {/* Shop by Category Tiles */}
             <InstamartCategories
               onSelectDepartment={handleSelectDepartment}
-              onViewAllCategories={() => setCurrentView('categories')}
+              onViewAllCategories={() => changeView('categories')}
             />
 
             {/* Shelf 1: Popular Essentials */}
@@ -86,7 +121,7 @@ export function AppContent() {
               title="Popular in Ramavaram & Kutukuluru"
               subtitle="Daily essential items frequently ordered by local families"
               products={popularProducts}
-              onViewAll={() => setCurrentView('shop')}
+              onViewAll={() => changeView('shop')}
               bgLight={true}
             />
 
@@ -148,8 +183,8 @@ export function AppContent() {
 
         {currentView === 'about' && (
           <AboutPage
-            onShopClick={() => setCurrentView('shop')}
-            onContactClick={() => setCurrentView('contact')}
+            onShopClick={() => changeView('shop')}
+            onContactClick={() => changeView('contact')}
           />
         )}
 
@@ -160,7 +195,7 @@ export function AppContent() {
 
       {/* Footer */}
       <Footer
-        setCurrentView={setCurrentView}
+        setCurrentView={changeView}
         onSelectDepartment={handleSelectDepartment}
       />
 
@@ -173,7 +208,7 @@ export function AppContent() {
       {/* Fixed Mobile Bottom Navigation */}
       <MobileBottomNav
         currentView={currentView}
-        setCurrentView={setCurrentView}
+        setCurrentView={changeView}
       />
 
       {/* Global Modals & Drawers */}

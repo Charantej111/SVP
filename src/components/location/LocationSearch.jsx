@@ -147,48 +147,39 @@ export const LocationSearch = ({
                 {/* Icon */}
                 <div className={`p-2 rounded-xl shrink-0 mt-0.5 transition-colors ${
                   item.isSpvPriority
-                    ? 'bg-brand-100 text-brand-800 group-hover:bg-brand-800 group-hover:text-white'
+                    ? 'bg-emerald-50 text-emerald-800 group-hover:bg-emerald-800 group-hover:text-white'
                     : 'bg-gray-100 text-gray-700 group-hover:bg-gray-800 group-hover:text-white'
                 }`}>
-                  {item.isSpvPriority ? (
-                    <MapPin className="w-4 h-4" />
-                  ) : (
-                    <Building className="w-4 h-4" />
-                  )}
+                  <MapPin className="w-4 h-4" />
                 </div>
                 
                 {/* Details */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[13.5px] font-extrabold text-[#02060C] truncate group-hover:text-brand-900">
+                    <span className="text-[13.5px] font-bold text-[#02060C] truncate group-hover:text-emerald-900">
                       {item.title}
                     </span>
 
-                    {item.isSpvPriority && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-black bg-brand-100 text-brand-800 border border-brand-200 px-1.5 py-0.5 rounded-md">
-                        <Sparkles className="w-2.5 h-2.5" />
-                        SPV Delivery Area
+                    {item.postalCode && (
+                      <span className="text-[10.5px] font-semibold text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded">
+                        {item.postalCode}
                       </span>
                     )}
 
-                    {item.postalCode && (
-                      <span className="text-[10px] font-bold bg-white text-gray-700 border border-gray-200 px-1.5 py-0.5 rounded-md">
-                        PIN {item.postalCode}
+                    {item.isSpvPriority && (
+                      <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-1.5 py-0.5 rounded">
+                        Direct Delivery
                       </span>
                     )}
                   </div>
 
                   {/* Subtitle / Hierarchy */}
-                  <div className="text-[11.5px] text-[#686B78] font-medium line-clamp-2 leading-relaxed mt-0.5">
-                    {item.isSpvPriority && item.mandal ? (
-                      <span>{item.mandal} Mandal · {item.district || 'Konaseema'}</span>
-                    ) : (
-                      <span>{item.fullAddress}</span>
-                    )}
+                  <div className="text-[11.5px] text-[#686B78] font-normal line-clamp-1 mt-0.5">
+                    {item.mandal ? `${item.mandal} Mandal · ${item.district || 'Konaseema'}` : item.fullAddress}
                   </div>
                 </div>
 
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-brand-800 group-hover:translate-x-0.5 transition-all shrink-0 mt-2" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-emerald-800 group-hover:translate-x-0.5 transition-all shrink-0 mt-1.5" />
               </button>
             ))}
 
