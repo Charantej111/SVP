@@ -7,8 +7,8 @@ export const FreshSection = ({ onSelectSubcategory, onViewAllFresh }) => {
   const freshItems = PRODUCTS.filter(p => p.departmentId === 'fresh-dairy').slice(0, 6);
 
   const freshCategories = [
-    { id: 'fruits-vegetables', name: 'Fruits & Veggies', desc: 'Daily Mandi Fresh' },
     { id: 'milk-dairy', name: 'Milk & Dairy', desc: 'Heritage & Amul' },
+    { id: 'butter-cheese', name: 'Butter & Paneer', desc: 'Fresh Paneer' },
     { id: 'bread-bakery', name: 'Bread & Bakery', desc: 'Daily Baked' },
     { id: 'eggs', name: 'Farm Fresh Eggs', desc: 'Tray & Box' }
   ];
@@ -22,7 +22,7 @@ export const FreshSection = ({ onSelectSubcategory, onViewAllFresh }) => {
           <div>
             <div className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-700 uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Daily Dairy & Produce</span>
+              <span>Daily Dairy & Bakery</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900">
               Fresh picks for your home

@@ -125,10 +125,10 @@ export function AppContent() {
               bgLight={true}
             />
 
-            {/* Shelf 2: Fresh Dairy, Bread & Produce */}
+            {/* Shelf 2: Fresh Dairy, Bread & Bakery */}
             <CategoryProductShelf
-              title="Dairy, Bread & Fresh Produce"
-              subtitle="Milk, curd, butter, eggs and vegetables replenished daily"
+              title="Dairy, Bread & Breakfast Essentials"
+              subtitle="Heritage & Amul milk, curd, butter, paneer, and fresh bakery"
               products={dairyProduceProducts}
               onViewAll={() => handleSelectDepartment('fresh-dairy')}
               bgLight={false}

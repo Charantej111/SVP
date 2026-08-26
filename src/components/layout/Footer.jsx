@@ -117,8 +117,21 @@ export const Footer = ({ setCurrentView, onSelectDepartment }) => {
           <div>
             © {new Date().getFullYear()} {STORE_CONFIG.name}. All rights reserved.
           </div>
-          <div>
-            Proprietor: {STORE_CONFIG.leadership.proprietor}
+
+          <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-end text-gray-500">
+            <span>Proprietor: <span className="text-gray-400">{STORE_CONFIG.leadership.proprietor}</span></span>
+            <span className="hidden sm:inline text-gray-700">•</span>
+            <span>
+              Developed by{' '}
+              <a 
+                href="https://charan.ofzen.in/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-emerald-400 hover:text-emerald-300 font-medium hover:underline transition-colors inline-flex items-center gap-0.5"
+              >
+                Charan Tej Neelam
+              </a>
+            </span>
           </div>
         </div>
 

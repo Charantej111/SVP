@@ -6,7 +6,8 @@ export const InstamartHeroBanner = ({ onShopClick }) => {
 
   const bannerImages = [
     '/banner.png',
-    '/banner_2.png'
+    '/banner_2.png',
+    '/Banner_3.png'
   ];
 
   useEffect(() => {

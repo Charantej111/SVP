@@ -350,42 +350,42 @@ export const PRODUCTS = [
   },
   {
     id: "fresh-07",
-    brand: "Local Mandi",
-    name: "Fresh Red Onions (Clean & Dry)",
+    brand: "Amul",
+    name: "Pasteurized Processed Cheese Slices",
     departmentId: "fresh-dairy",
-    subcategoryId: "fruits-vegetables",
-    packSize: "1 kg",
-    price: 40,
-    inStock: true,
-    isPopular: true,
-    isMonthlyEssential: true,
-    imageUrl: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=400&q=80"
-  },
-  {
-    id: "fresh-08",
-    brand: "Local Mandi",
-    name: "Fresh Hybrid Red Salad Tomatoes",
-    departmentId: "fresh-dairy",
-    subcategoryId: "fruits-vegetables",
-    packSize: "1 kg",
-    price: 35,
+    subcategoryId: "butter-cheese",
+    packSize: "200 g (10 Slices)",
+    price: 145,
     inStock: true,
     isPopular: true,
     isMonthlyEssential: false,
-    imageUrl: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1624806992066-5ffcf7ca186b?auto=format&fit=crop&w=400&q=80"
   },
   {
-    id: "fresh-09",
-    brand: "Local Mandi",
-    name: "Fresh Clean Potatoes",
+    id: "fresh-08",
+    brand: "Heritage",
+    name: "Daily Fresh Curd Cup (Creamy)",
     departmentId: "fresh-dairy",
-    subcategoryId: "fruits-vegetables",
-    packSize: "1 kg",
-    price: 38,
+    subcategoryId: "milk-dairy",
+    packSize: "400 g Cup",
+    price: 45,
     inStock: true,
     isPopular: true,
     isMonthlyEssential: true,
-    imageUrl: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=400&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1571212515416-fef01fc43637?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: "fresh-09",
+    brand: "Britannia",
+    name: "Toastea Premium Crunchy Wheat Rusk",
+    departmentId: "fresh-dairy",
+    subcategoryId: "bread-bakery",
+    packSize: "400 g",
+    price: 60,
+    inStock: true,
+    isPopular: true,
+    isMonthlyEssential: true,
+    imageUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80"
   },
 
   // --- BEVERAGES ---

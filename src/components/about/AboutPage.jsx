@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Store, 
   MapPin, 
@@ -8,45 +8,41 @@ import {
   ShoppingBag, 
   MessageCircle, 
   ArrowLeft, 
-  Building2,
-  CheckCircle2,
-  ShieldCheck,
   User
 } from 'lucide-react';
 import { STORE_CONFIG } from '../../config/storeConfig';
 
 const STORE_PHOTOS = [
   {
-    id: 'front',
-    title: 'Storefront & Customer Parking',
-    src: '/store_front.jpg',
+    id: 'gallery-1',
+    src: '/gallery_1.png',
     fallback: '/banner.png'
   },
   {
-    id: 'aisles',
-    title: 'Grocery & Staples Aisles',
-    src: '/store_aisles.jpg',
+    id: 'gallery-2',
+    src: '/gallery_2.png',
     fallback: '/banner_2.png'
   },
   {
-    id: 'dairy',
-    title: 'Fresh Dairy & Daily Essentials',
-    src: '/store_dairy.jpg',
+    id: 'gallery-3',
+    src: '/gallery_3.png',
     fallback: '/Banner_3.png'
   }
 ];
 
 export const AboutPage = ({ onShopClick }) => {
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+    <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12 animate-in fade-in slide-in-from-bottom-3 duration-300">
       
       {/* Top Back Link */}
       <div className="mb-6">
         <button
           onClick={onShopClick}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-emerald-800 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-emerald-800 transition-colors cursor-pointer group"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
           <span>Back to Groceries</span>
         </button>
       </div>
@@ -77,7 +73,7 @@ export const AboutPage = ({ onShopClick }) => {
               href={STORE_CONFIG.location.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-xs"
+              className="px-4 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer hover:shadow-md"
             >
               <Navigation className="w-3.5 h-3.5" />
               <span>Get Directions</span>
@@ -87,7 +83,7 @@ export const AboutPage = ({ onShopClick }) => {
               href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-xs"
+              className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer hover:shadow-md"
             >
               <MessageCircle className="w-3.5 h-3.5 fill-current" />
               <span>WhatsApp</span>
@@ -111,7 +107,7 @@ export const AboutPage = ({ onShopClick }) => {
         {/* Store & Contact Information */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           
-          <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-2 text-xs sm:text-sm">
+          <div className="p-4 rounded-2xl bg-gray-50 hover:bg-gray-50/80 border border-gray-200/80 space-y-2 text-xs sm:text-sm transition-all duration-200 hover:shadow-xs">
             <div className="flex items-start gap-2.5 text-gray-800">
               <MapPin className="w-4 h-4 text-emerald-800 shrink-0 mt-0.5" />
               <div>
@@ -129,7 +125,7 @@ export const AboutPage = ({ onShopClick }) => {
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-2 text-xs sm:text-sm">
+          <div className="p-4 rounded-2xl bg-gray-50 hover:bg-gray-50/80 border border-gray-200/80 space-y-2 text-xs sm:text-sm transition-all duration-200 hover:shadow-xs">
             <div className="flex items-start gap-2.5 text-gray-800">
               <Phone className="w-4 h-4 text-emerald-800 shrink-0 mt-0.5" />
               <div>
@@ -149,32 +145,33 @@ export const AboutPage = ({ onShopClick }) => {
 
         </div>
 
-        {/* Store Photos */}
+        {/* Store Photos (Clean, No Names / Labels) */}
         <div className="pt-2">
           <h2 className="text-sm font-bold text-gray-900 mb-3">
             Store Gallery
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             {STORE_PHOTOS.map((photo) => (
-              <div key={photo.id} className="rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 shadow-xs">
+              <div 
+                key={photo.id} 
+                onClick={() => setSelectedPhoto(photo.src)}
+                className="group rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 shadow-2xs hover:shadow-md transition-all duration-300 cursor-pointer aspect-[16/11]"
+              >
                 <img
                   src={photo.src}
-                  alt={photo.title}
+                  alt="SPV Super Bazar Store Photo"
                   onError={(e) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = photo.fallback;
                   }}
-                  className="w-full h-44 object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="p-2.5 text-xs text-gray-700 font-medium text-center bg-white border-t border-gray-100">
-                  {photo.title}
-                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Service Villages */}
+        {/* Delivery Coverage */}
         <div className="pt-2">
           <h2 className="text-sm font-bold text-gray-900 mb-2">
             Delivery Coverage
@@ -188,11 +185,11 @@ export const AboutPage = ({ onShopClick }) => {
           </div>
         </div>
 
-        {/* Action button */}
+        {/* Action Button */}
         <div className="pt-4 border-t border-gray-100 text-center">
           <button
             onClick={onShopClick}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-subtle cursor-pointer hover:shadow-md"
           >
             <ShoppingBag className="w-4 h-4" />
             <span>Browse Online Products</span>
@@ -200,6 +197,35 @@ export const AboutPage = ({ onShopClick }) => {
         </div>
 
       </div>
+
+      {/* Lightbox Modal for Photo Zoom */}
+      {selectedPhoto && (
+        <div 
+          onClick={() => setSelectedPhoto(null)}
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl overflow-hidden max-w-3xl w-full shadow-2xl border border-white/20"
+          >
+            <div className="relative aspect-[16/10] bg-black">
+              <img
+                src={selectedPhoto}
+                alt="Store View"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="p-4 flex justify-end">
+              <button
+                onClick={() => setSelectedPhoto(null)}
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

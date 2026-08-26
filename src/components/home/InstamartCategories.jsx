@@ -4,11 +4,11 @@ import { ArrowRight } from 'lucide-react';
 export const InstamartCategories = ({ onSelectDepartment, onViewAllCategories }) => {
   const categorySections = [
     {
-      title: "Fresh items",
+      title: "Dairy & Breakfast",
       items: [
-        { id: "fresh-dairy", subId: "fruits-vegetables", name: "Fresh Vegetables", imageUrl: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=400&q=80", bgTint: "bg-[#F0F7FF] border-[#D8E6FE]" },
-        { id: "fresh-dairy", subId: "fruits-vegetables", name: "Fresh Fruits", imageUrl: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=400&q=80", bgTint: "bg-[#FFF7ED] border-[#FFEDD5]" },
-        { id: "fresh-dairy", subId: "milk-dairy", name: "Dairy, Bread and Eggs", imageUrl: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=400&q=80", bgTint: "bg-[#F0FDF4] border-[#DCFCE7]" },
+        { id: "fresh-dairy", subId: "milk-dairy", name: "Milk, Curd & Lassi", imageUrl: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=400&q=80", bgTint: "bg-[#F0FDF4] border-[#DCFCE7]" },
+        { id: "fresh-dairy", subId: "butter-cheese", name: "Butter & Paneer", imageUrl: "https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=400&q=80", bgTint: "bg-[#FFF7ED] border-[#FFEDD5]" },
+        { id: "fresh-dairy", subId: "bread-bakery", name: "Bread, Pav & Bakery", imageUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80", bgTint: "bg-[#FEFCE8] border-[#FEF08A]" },
         { id: "fresh-dairy", subId: "eggs", name: "Farm Fresh Eggs", imageUrl: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=400&q=80", bgTint: "bg-[#FFFBEB] border-[#FEF3C7]" }
       ]
     },
