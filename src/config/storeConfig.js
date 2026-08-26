@@ -29,7 +29,7 @@ export const STORE_CONFIG = {
     formattedWhatsApp: "+91 95516 24444",
     
     // Store working hours
-    timings: "7:00 AM – 9:30 PM (Open 7 Days)",
+    timings: "8:00 AM – 9:30 PM (Open 7 Days)",
   },
 
   leadership: {

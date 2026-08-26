@@ -120,7 +120,7 @@ export const AboutPage = ({ onShopClick }) => {
               <Clock className="w-4 h-4 text-emerald-800 shrink-0" />
               <div>
                 <div className="font-bold text-gray-900">Working Hours</div>
-                <div className="text-xs text-gray-600 mt-0.5">7:00 AM – 9:30 PM (All 7 Days)</div>
+                <div className="text-xs text-gray-600 mt-0.5">{STORE_CONFIG.contact.timings}</div>
               </div>
             </div>
           </div>
