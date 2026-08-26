@@ -29,7 +29,7 @@ export const DepartmentBrowser = ({ onSelectCategory, onSelectSubcategory }) => 
           >
             <div>
               {/* Category Showcase Image */}
-              <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden mb-5 bg-gray-50/80 border border-gray-100 p-2 flex items-center justify-center">
+              <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden mb-5 bg-gray-50/80 border border-gray-100 flex items-center justify-center">
                 <CategoryBannerImage categoryId={dept.id} />
               </div>
 

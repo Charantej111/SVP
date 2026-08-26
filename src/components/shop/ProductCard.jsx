@@ -12,12 +12,12 @@ export const ProductCard = ({ product }) => {
     <div className="bg-white rounded-2xl border border-[#E2E2E7] p-2.5 sm:p-3 flex flex-col justify-between hover:border-brand-800/40 hover:shadow-card-hover transition-all duration-200 group relative">
       
       {/* Product Image Frame with Bold Round Corners */}
-      <div className="w-full aspect-square rounded-2xl bg-white p-1 relative overflow-hidden flex items-center justify-center mb-2 border border-black/[0.06] shadow-2xs">
+      <div className="w-full aspect-square rounded-2xl bg-gray-50/80 relative overflow-hidden flex items-center justify-center mb-2.5 border border-gray-100 shadow-2xs">
         <ProductImage
           imageUrl={product.imageUrl}
           brand={product.brand}
           name={product.name}
-          className="w-full h-full object-contain rounded-2xl group-hover:scale-105 transition-transform duration-200"
+          className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-300"
         />
       </div>
 
