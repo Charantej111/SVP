@@ -80,7 +80,7 @@ export const AboutPage = ({ onShopClick }) => {
             </a>
 
             <a
-              href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}`}
+              href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}?text=${encodeURIComponent(`Hello ${STORE_CONFIG.name},\n\nI would like to contact Sri Prasanna Vigneswara Superbazaar.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer hover:shadow-md"

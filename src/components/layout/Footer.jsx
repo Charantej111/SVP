@@ -95,7 +95,7 @@ export const Footer = ({ setCurrentView, onSelectDepartment }) => {
               </a>
 
               <a 
-                href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}`}
+                href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}?text=${encodeURIComponent(`Hello ${STORE_CONFIG.name},\n\nI have an inquiry regarding grocery items and home delivery in Ramavaram / Kutukuluru area.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-white transition-colors"

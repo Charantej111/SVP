@@ -62,7 +62,7 @@ export const ContactPage = () => {
                   Send your shopping list or questions directly to our store team.
                 </p>
                 <a
-                  href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}`}
+                  href={`https://wa.me/${STORE_CONFIG.contact.whatsappNumber}?text=${encodeURIComponent(`Hello ${STORE_CONFIG.name},\n\nI have a question about store products, availability, and home delivery.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-xl transition-all shadow-subtle cursor-pointer active:scale-95 hover:shadow-md"
