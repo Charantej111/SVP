@@ -23,7 +23,9 @@ export const sendCustomerEmailOtp = async (email) => {
 
   // Explicit Local Demo Mode fallback
   console.warn('[SPV Demo Mode] Supabase credentials not found in .env.local. Simulating OTP for demo.');
-  sessionStorage.setItem('spv_demo_pending_otp_email', normalizedEmail);
+  try {
+    sessionStorage.setItem('spv_demo_pending_otp_email', normalizedEmail);
+  } catch (e) {}
   return { 
     success: true, 
     email: normalizedEmail, 
@@ -95,7 +97,10 @@ export const verifyCustomerEmailOtp = async (email, token) => {
   }
 
   // Explicit Demo Mode verification
-  const demoEmail = sessionStorage.getItem('spv_demo_pending_otp_email') || normalizedEmail;
+  let demoEmail = normalizedEmail;
+  try {
+    demoEmail = sessionStorage.getItem('spv_demo_pending_otp_email') || normalizedEmail;
+  } catch (e) {}
   const demoProfileRaw = localStorage.getItem(DEMO_USER_KEY);
   const demoProfile = demoProfileRaw ? JSON.parse(demoProfileRaw) : null;
 
@@ -266,7 +271,9 @@ export const signOutUser = async () => {
   if (isSupabaseConfigured()) {
     await supabase.auth.signOut();
   }
-  localStorage.removeItem('spv_demo_current_user');
-  localStorage.removeItem(DEMO_ADMIN_KEY);
-  sessionStorage.removeItem('spv_demo_pending_otp_email');
+  try {
+    localStorage.removeItem('spv_demo_current_user');
+    localStorage.removeItem(DEMO_ADMIN_KEY);
+    sessionStorage.removeItem('spv_demo_pending_otp_email');
+  } catch (e) {}
 };

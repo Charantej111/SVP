@@ -18,7 +18,8 @@ import {
   fetchAdminProducts, 
   createProduct, 
   updateProduct, 
-  toggleProductActive 
+  toggleProductActive,
+  getInitialDemoProducts
 } from './services/productService';
 import { 
   fetchInventory, 
@@ -50,26 +51,34 @@ import { CartDrawer } from './components/cart/CartDrawer';
 import { CheckoutForm } from './components/cart/CheckoutForm';
 import { OrderSuccessModal } from './components/cart/OrderSuccessModal';
 
+const getViewFromLocation = () => {
+  try {
+    // 1. Check clean pathname (e.g. '/shop', '/admin', '/account')
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    if (['shop', 'categories', 'about', 'contact', 'account', 'admin', 'admin/login'].includes(path)) {
+      return path;
+    }
+    // 2. Backwards-compatible check for legacy hash links
+    const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+    if (['shop', 'categories', 'about', 'contact', 'account', 'admin', 'admin/login'].includes(hash)) {
+      return hash;
+    }
+  } catch {}
+  return 'home';
+};
+
 export function AppContent() {
   const { user, isAdmin, authLoading } = useAuth();
 
-  const [currentView, setCurrentView] = useState(() => {
-    try {
-      const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-      if (['home', 'shop', 'categories', 'about', 'contact', 'account', 'admin', 'admin/login'].includes(hash)) {
-        return hash;
-      }
-    } catch {}
-    return 'home';
-  });
+  const [currentView, setCurrentView] = useState(getViewFromLocation);
 
   const [adminTab, setAdminTab] = useState('dashboard'); // 'dashboard' | 'products' | 'inventory' | 'history'
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('all');
   const [selectedSubcategory, setSelectedSubcategory] = useState('all');
 
-  // Product & Inventory Data
-  const [products, setProducts] = useState([]);
+  // Product & Inventory Data (Initializes immediately with full catalog data)
+  const [products, setProducts] = useState(getInitialDemoProducts);
   const [inventory, setInventory] = useState([]);
   const [movements, setMovements] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
@@ -107,27 +116,27 @@ export function AppContent() {
     loadData();
   }, [loadData]);
 
-  // Keep state and URL hash in sync for direct links & back/forward navigation
+  // Keep state and clean browser URL in sync for direct links & back/forward navigation
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-      if (['home', 'shop', 'categories', 'about', 'contact', 'account', 'admin', 'admin/login'].includes(hash)) {
-        setCurrentView(hash);
-      } else if (!hash) {
-        setCurrentView('home');
-      }
+    const handleLocationChange = () => {
+      const nextView = getViewFromLocation();
+      setCurrentView(nextView);
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
   }, []);
 
   const changeView = (view) => {
     setCurrentView(view);
     try {
-      const targetHash = view === 'home' ? '' : `#/${view}`;
-      if (window.location.hash !== targetHash) {
-        window.history.pushState(null, '', targetHash || window.location.pathname);
+      const targetPath = view === 'home' ? '/' : `/${view}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState(null, '', targetPath);
       }
     } catch {}
     window.scrollTo({ top: 0, behavior: 'smooth' });

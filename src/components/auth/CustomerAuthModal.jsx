@@ -183,7 +183,8 @@ export const CustomerAuthModal = () => {
     } else if (pendingDestination === 'cart') {
       openCart();
     } else if (pendingDestination === 'account') {
-      window.location.hash = '#/account';
+      window.history.pushState(null, '', '/account');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     }
   };
 

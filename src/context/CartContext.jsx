@@ -57,12 +57,16 @@ export const CartProvider = ({ children }) => {
 
   // Automatically trigger location modal on first landing after 500ms
   useEffect(() => {
-    const hasSeenLocation = sessionStorage.getItem('spv_has_seen_location_modal');
-    if (!hasSeenLocation) {
-      const timer = setTimeout(() => {
-        setIsLocationModalOpen(true);
-      }, 500);
-      return () => clearTimeout(timer);
+    try {
+      const hasSeenLocation = sessionStorage.getItem('spv_has_seen_location_modal');
+      if (!hasSeenLocation) {
+        const timer = setTimeout(() => {
+          setIsLocationModalOpen(true);
+        }, 500);
+        return () => clearTimeout(timer);
+      }
+    } catch (e) {
+      // Safe fallback if storage blocked
     }
   }, []);
 
@@ -93,14 +97,14 @@ export const CartProvider = ({ children }) => {
 
     try {
       sessionStorage.setItem('spv_has_seen_location_modal', 'true');
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
     setIsLocationModalOpen(false);
   };
 
   const closeLocationModal = () => {
-    sessionStorage.setItem('spv_has_seen_location_modal', 'true');
+    try {
+      sessionStorage.setItem('spv_has_seen_location_modal', 'true');
+    } catch (e) {}
     setIsLocationModalOpen(false);
   };
 

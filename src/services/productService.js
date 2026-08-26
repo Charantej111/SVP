@@ -4,7 +4,7 @@ import { PRODUCTS as INITIAL_PRODUCTS } from '../data/productsData';
 // Local storage key for demo mode updates
 const DEMO_PRODUCTS_KEY = 'spv_demo_products_store';
 
-const getInitialDemoProducts = () => {
+export const getInitialDemoProducts = () => {
   try {
     const saved = localStorage.getItem(DEMO_PRODUCTS_KEY);
     if (saved) return JSON.parse(saved);
@@ -44,24 +44,29 @@ const getInitialDemoProducts = () => {
  */
 export const fetchPublicProducts = async () => {
   if (isSupabaseConfigured()) {
-    const { data, error } = await supabase
-      .from('public_products')
-      .select('*');
+    try {
+      const { data, error } = await supabase
+        .from('public_products')
+        .select('*');
 
-    if (!error && data && data.length > 0) {
-      return data;
+      if (!error && data && data.length > 0) {
+        return data;
+      }
+      // If view is not yet created, fallback to products query
+      const { data: rawProducts, error: prodErr } = await supabase
+        .from('products')
+        .select('*')
+        .eq('is_active', true);
+
+      if (!prodErr && rawProducts && rawProducts.length > 0) {
+        return rawProducts;
+      }
+    } catch (err) {
+      console.warn('Supabase public catalog query fallback:', err);
     }
-    // If view is not yet created, fallback to products query
-    const { data: rawProducts, error: prodErr } = await supabase
-      .from('products')
-      .select('*')
-      .eq('is_active', true);
-
-    if (prodErr) throw prodErr;
-    return rawProducts || [];
   }
 
-  // Demo mode
+  // Demo mode / Fallback data
   const demoList = getInitialDemoProducts();
   return demoList.filter(p => p.is_active !== false);
 };
