@@ -81,21 +81,23 @@ export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuer
             {isAuthenticated ? (
               <button
                 onClick={() => setCurrentView('account')}
-                className="hidden sm:flex items-center gap-1.5 bg-brand-50 hover:bg-brand-100 text-brand-900 border border-brand-200 px-3 py-1.5 rounded-xl font-bold text-xs sm:text-[13px] transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 bg-brand-50 hover:bg-brand-100 text-brand-900 border border-brand-200 px-2.5 sm:px-3 py-1.5 rounded-xl font-bold text-xs sm:text-[13px] transition-colors cursor-pointer"
                 title="View My Account"
+                aria-label="View My Account"
               >
-                <div className="w-5 h-5 rounded-full bg-brand-800 text-white flex items-center justify-center text-[10px] font-black">
+                <div className="w-5 h-5 rounded-full bg-brand-800 text-white flex items-center justify-center text-[10px] font-black shrink-0">
                   {(user.name || user.email || 'U')[0].toUpperCase()}
                 </div>
-                <span className="max-w-[100px] truncate">{user.name ? user.name.split(' ')[0] : 'My Account'}</span>
+                <span className="hidden sm:inline max-w-[100px] truncate">{user.name ? user.name.split(' ')[0] : 'My Account'}</span>
               </button>
             ) : (
               <button
                 onClick={() => openCustomerAuthModal('account')}
-                className="hidden sm:flex items-center gap-1.5 text-[#02060C] hover:text-[#686B78] cursor-pointer transition-colors px-1 py-2 font-bold text-xs sm:text-[13px]"
+                className="flex items-center gap-1 text-[#02060C] hover:text-[#686B78] cursor-pointer transition-colors p-1.5 sm:px-2 sm:py-2 font-bold text-xs sm:text-[13px] rounded-lg hover:bg-gray-100"
+                aria-label="Sign in"
               >
                 <User className="w-5 h-5 text-gray-700" />
-                <span>Sign in</span>
+                <span className="hidden sm:inline">Sign in</span>
               </button>
             )}
 
