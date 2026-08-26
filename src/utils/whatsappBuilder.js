@@ -2,7 +2,7 @@ import { STORE_CONFIG } from '../config/storeConfig';
 import { formatPrice } from './formatters';
 
 /**
- * Generates formatted WhatsApp order message and direct link with delivery location coordinates & map link
+ * Generates formatted WhatsApp order message without map links, coordinates, or internal IDs.
  */
 export const buildWhatsAppMessage = (cartItems, customerDetails, deliveryLocation = null) => {
   const { name, phone, orderType, address, landmark, instructions } = customerDetails;
@@ -11,10 +11,11 @@ export const buildWhatsAppMessage = (cartItems, customerDetails, deliveryLocatio
   const totalItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   
-  // Build items lines
+  // Build items lines (Clean: Brand, Name, Pack Size, Quantity, Total Price)
   const itemsText = cartItems.map((item, index) => {
     const itemTotal = item.price * item.quantity;
-    return `${index + 1}. ${item.brand} ${item.name} (${item.packSize}) × ${item.quantity} = ${formatPrice(itemTotal)}`;
+    const packSizeStr = item.packSize || item.pack_size ? ` (${item.packSize || item.pack_size})` : '';
+    return `${index + 1}. ${item.brand} ${item.name}${packSizeStr} × ${item.quantity} = ${formatPrice(itemTotal)}`;
   }).join('\n');
 
   let message = `Hello ${STORE_CONFIG.name},\n\n`;
@@ -22,43 +23,52 @@ export const buildWhatsAppMessage = (cartItems, customerDetails, deliveryLocatio
   message += `--- *ORDER ITEMS* ---\n`;
   message += `${itemsText}\n\n`;
   message += `*Total Estimated Subtotal:* ${formatPrice(subtotal)} (${totalItemCount} ${totalItemCount === 1 ? 'item' : 'items'})\n\n`;
-  message += `--- *CUSTOMER & DELIVERY DETAILS* ---\n`;
+  message += `--- *CUSTOMER DETAILS* ---\n`;
   message += `*Name:* ${name.trim()}\n`;
   message += `*Phone:* ${phone.trim()}\n`;
-  message += `*Order Type:* ${orderType === 'delivery' ? 'Home Delivery' : 'Store Pickup'}\n`;
+  message += `*Order Type:* ${orderType === 'delivery' ? 'Home Delivery' : 'Store Pickup'}\n\n`;
   
   if (orderType === 'delivery') {
-    if (address) {
-      message += `*Delivery Address:* ${address.trim()}\n`;
+    message += `--- *DELIVERY DETAILS* ---\n`;
+    if (address && address.trim()) {
+      message += `*Address:* ${address.trim()}\n`;
     }
+
+    if (deliveryLocation) {
+      if (deliveryLocation.village) {
+        message += `*Village / Locality:* ${deliveryLocation.village}\n`;
+      }
+      if (deliveryLocation.mandal) {
+        message += `*Mandal:* ${deliveryLocation.mandal}\n`;
+      }
+      if (deliveryLocation.district) {
+        message += `*District:* ${deliveryLocation.district}\n`;
+      }
+      if (deliveryLocation.pincode) {
+        message += `*Pincode:* ${deliveryLocation.pincode}\n`;
+      }
+    } else {
+      message += `*State:* Andhra Pradesh\n`;
+    }
+
     if (landmark && landmark.trim()) {
       message += `*Landmark:* ${landmark.trim()}\n`;
     }
-    
-    // Direct Google Maps link matching the exact location
-    if (deliveryLocation?.latitude && deliveryLocation?.longitude) {
-      message += `*Google Maps Pin:* https://www.google.com/maps/search/?api=1&query=${deliveryLocation.latitude},${deliveryLocation.longitude}\n`;
-      if (deliveryLocation.shortAddress || deliveryLocation.village) {
-        message += `*Locality / Mandal:* ${deliveryLocation.shortAddress || deliveryLocation.village}\n`;
-      }
-    } else if (address && address.trim()) {
-      const mapsQuery = encodeURIComponent(`${address.trim()}, Andhra Pradesh`);
-      message += `*Google Maps Search:* https://www.google.com/maps/search/?api=1&query=${mapsQuery}\n`;
-    }
+    message += `\n`;
   }
   
   if (instructions && instructions.trim()) {
-    message += `*Notes/Instructions:* ${instructions.trim()}\n`;
+    message += `*Special Instructions:* ${instructions.trim()}\n\n`;
   }
   
-  message += `\n${STORE_CONFIG.policies.orderConfirmationNote}\n\n`;
+  message += `${STORE_CONFIG.policies.orderConfirmationNote}\n\n`;
   message += `Thank you!`;
 
   return message;
 };
 
 /**
- * Creates the complete wa.me URL
+ * Creates the wa.me URL.
  */
 export const createWhatsAppUrl = (cartItems, customerDetails, deliveryLocation = null) => {
   const message = buildWhatsAppMessage(cartItems, customerDetails, deliveryLocation);

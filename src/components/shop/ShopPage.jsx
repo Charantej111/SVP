@@ -3,6 +3,7 @@ import { Search, X, ArrowUpDown } from 'lucide-react';
 import { ProductCard } from './ProductCard';
 import { PRODUCTS } from '../../data/productsData';
 import { DEPARTMENTS } from '../../data/categoriesData';
+import { CustomDropdown } from '../common/CustomDropdown';
 
 export const ShopPage = ({ 
   searchQuery, 
@@ -167,16 +168,19 @@ export const ShopPage = ({
           </div>
 
           <div className="flex items-center gap-1.5">
-            <ArrowUpDown className="w-3.5 h-3.5 text-[#93959F]" />
-            <select
+            <CustomDropdown
+              size="sm"
+              icon={ArrowUpDown}
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="bg-[#F0F0F5] border border-[#E2E2E7] rounded-lg py-1 px-2.5 text-[11px] font-bold text-[#02060C] focus:outline-none focus:ring-1 focus:ring-brand-800 cursor-pointer"
-            >
-              <option value="popular">Popular First</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-            </select>
+              onChange={setSortBy}
+              buttonClassName="bg-[#F0F0F5] hover:bg-[#EAEAEF] border-[#E2E2E7] text-[#02060C] font-extrabold text-[11px] h-8 rounded-lg"
+              menuClassName="w-48 right-0"
+              options={[
+                { value: 'popular', label: 'Popular First' },
+                { value: 'price-asc', label: 'Price: Low to High' },
+                { value: 'price-desc', label: 'Price: High to Low' }
+              ]}
+            />
           </div>
         </div>
 

@@ -2,10 +2,12 @@ import React from 'react';
 import { ShoppingBag, Search, MapPin, ChevronDown, User } from 'lucide-react';
 import { STORE_CONFIG } from '../../config/storeConfig';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 import { formatPrice } from '../../utils/formatters';
 
 export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuery }) => {
   const { totalItemsCount, subtotal, openCart, userLocation, deliveryLocation, openLocationModal } = useCart();
+  const { user, isAuthenticated, openCustomerAuthModal } = useAuth();
 
   const displayLocation = deliveryLocation?.shortAddress || userLocation || "Add your location";
   const displayShortMobile = (deliveryLocation?.shortAddress || userLocation || "Location").split(',')[0].trim();
@@ -75,11 +77,27 @@ export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuer
           {/* Right Action Controls: Sign In & Cart */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             
-            {/* Profile Button (Sign In Style) */}
-            <div className="hidden sm:flex items-center gap-1.5 text-[#02060C] hover:text-[#686B78] cursor-pointer transition-colors px-1 py-2 font-bold text-xs sm:text-[13px]">
-              <User className="w-5 h-5 text-gray-700" />
-              <span>Sign in</span>
-            </div>
+            {/* Profile Button (Dynamic Sign In / Account) */}
+            {isAuthenticated ? (
+              <button
+                onClick={() => setCurrentView('account')}
+                className="hidden sm:flex items-center gap-1.5 bg-brand-50 hover:bg-brand-100 text-brand-900 border border-brand-200 px-3 py-1.5 rounded-xl font-bold text-xs sm:text-[13px] transition-colors cursor-pointer"
+                title="View My Account"
+              >
+                <div className="w-5 h-5 rounded-full bg-brand-800 text-white flex items-center justify-center text-[10px] font-black">
+                  {(user.name || user.email || 'U')[0].toUpperCase()}
+                </div>
+                <span className="max-w-[100px] truncate">{user.name ? user.name.split(' ')[0] : 'My Account'}</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => openCustomerAuthModal('account')}
+                className="hidden sm:flex items-center gap-1.5 text-[#02060C] hover:text-[#686B78] cursor-pointer transition-colors px-1 py-2 font-bold text-xs sm:text-[13px]"
+              >
+                <User className="w-5 h-5 text-gray-700" />
+                <span>Sign in</span>
+              </button>
+            )}
 
             {/* My Cart Button (Instamart Pill Style) */}
             <button

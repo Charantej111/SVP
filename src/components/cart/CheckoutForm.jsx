@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, ArrowLeft, Truck, Store, MapPin, Phone, User, AlertCircle, ShieldCheck, Edit3, Sparkles } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 import { STORE_CONFIG } from '../../config/storeConfig';
 import { formatPrice } from '../../utils/formatters';
 import { createWhatsAppUrl, buildWhatsAppMessage } from '../../utils/whatsappBuilder';
@@ -21,18 +22,27 @@ export const CheckoutForm = () => {
     openLocationModal
   } = useCart();
 
+  const { user } = useAuth();
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Auto-populate delivery address if empty and deliveryLocation exists
+  // Auto-populate customer details from user profile if available
   useEffect(() => {
-    if (isCheckoutOpen && customerDetails.orderType === 'delivery' && (!customerDetails.address || !customerDetails.address.trim()) && deliveryLocation?.formattedAddress) {
+    if (isCheckoutOpen && user) {
+      setCustomerDetails(prev => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        phone: prev.phone || user.phone || '',
+        address: prev.address || user.address || deliveryLocation?.formattedAddress || '',
+        landmark: prev.landmark || user.landmark || ''
+      }));
+    } else if (isCheckoutOpen && customerDetails.orderType === 'delivery' && (!customerDetails.address || !customerDetails.address.trim()) && deliveryLocation?.formattedAddress) {
       setCustomerDetails(prev => ({
         ...prev,
         address: deliveryLocation.formattedAddress
       }));
     }
-  }, [isCheckoutOpen, customerDetails.orderType, deliveryLocation, setCustomerDetails]);
+  }, [isCheckoutOpen, user, deliveryLocation, setCustomerDetails]);
 
   if (!isCheckoutOpen) return null;
 
