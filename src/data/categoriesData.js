@@ -51,7 +51,7 @@ export const DEPARTMENTS = [
     id: "fresh-dairy",
     name: "Dairy, Bread & Breakfast",
     shortName: "Dairy & Bread",
-    tagline: "Fresh Milk, Curd, Butter, Paneer, Bread & Eggs",
+    tagline: "Fresh Milk, Curd, Butter, Paneer & Bread",
     description: "Daily replenished Heritage & Amul milk, butter, fresh paneer, and breakfast breads.",
     imageUrl: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80",
     color: {
@@ -62,7 +62,6 @@ export const DEPARTMENTS = [
     subcategories: [
       { id: "milk-dairy", name: "Milk, Curd & Paneer" },
       { id: "bread-bakery", name: "Bread, Pav & Bakery" },
-      { id: "eggs", name: "Eggs & Breakfast" },
       { id: "butter-cheese", name: "Butter & Cheese" }
     ]
   },
@@ -82,7 +81,7 @@ export const DEPARTMENTS = [
       { id: "tea", name: "Tea & Chai Powders" },
       { id: "coffee", name: "Coffee & Instant Mixes" },
       { id: "health-drinks", name: "Health & Malt Drinks" },
-      { id: "juices", name: "Fruit Juices & Squashes" },
+      { id: "juices", name: "Juices & Squashes" },
       { id: "packaged-water", name: "Packaged Water" },
       { id: "soft-drinks", name: "Soft Drinks & Soda" }
     ]

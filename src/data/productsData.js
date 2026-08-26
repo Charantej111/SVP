@@ -324,29 +324,29 @@ export const PRODUCTS = [
   },
   {
     id: "fresh-05",
-    brand: "Farm Fresh",
-    name: "Fresh White Farm Eggs",
+    brand: "Heritage",
+    name: "Fresh Pure Cow Milk",
     departmentId: "fresh-dairy",
-    subcategoryId: "eggs",
-    packSize: "6 pcs Pack",
-    price: 45,
+    subcategoryId: "milk-dairy",
+    packSize: "500 ml Pouch",
+    price: 32,
     inStock: true,
     isPopular: true,
     isMonthlyEssential: false,
-    imageUrl: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=400&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=400&q=80"
   },
   {
     id: "fresh-06",
-    brand: "Farm Fresh",
-    name: "White Farm Eggs (Fresh Tray)",
+    brand: "Modern",
+    name: "100% Whole Wheat Bread Loaf",
     departmentId: "fresh-dairy",
-    subcategoryId: "eggs",
-    packSize: "30 pcs Tray",
-    price: 210,
+    subcategoryId: "bread-bakery",
+    packSize: "400 g",
+    price: 50,
     inStock: true,
     isPopular: false,
     isMonthlyEssential: true,
-    imageUrl: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=400&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80"
   },
   {
     id: "fresh-07",

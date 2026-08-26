@@ -85,7 +85,7 @@ export function AppContent() {
 
   // Curated product shelves
   const popularProducts = PRODUCTS.filter(p => p.isPopular).slice(0, 8);
-  const dairyProduceProducts = PRODUCTS.filter(p => p.departmentId === 'fresh-dairy').slice(0, 8);
+  const dairyBakeryProducts = PRODUCTS.filter(p => p.departmentId === 'fresh-dairy').slice(0, 8);
   const staplesProducts = PRODUCTS.filter(p => p.departmentId === 'staples').slice(0, 8);
   const snacksBeveragesProducts = PRODUCTS.filter(p => p.departmentId === 'food' || p.departmentId === 'beverages').slice(0, 8);
   const homePersonalProducts = PRODUCTS.filter(p => p.departmentId === 'home-cleaning' || p.departmentId === 'personal-care').slice(0, 8);
@@ -129,7 +129,7 @@ export function AppContent() {
             <CategoryProductShelf
               title="Dairy, Bread & Breakfast Essentials"
               subtitle="Heritage & Amul milk, curd, butter, paneer, and fresh bakery"
-              products={dairyProduceProducts}
+              products={dairyBakeryProducts}
               onViewAll={() => handleSelectDepartment('fresh-dairy')}
               bgLight={false}
             />

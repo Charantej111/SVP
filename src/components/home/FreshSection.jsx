@@ -10,7 +10,7 @@ export const FreshSection = ({ onSelectSubcategory, onViewAllFresh }) => {
     { id: 'milk-dairy', name: 'Milk & Dairy', desc: 'Heritage & Amul' },
     { id: 'butter-cheese', name: 'Butter & Paneer', desc: 'Fresh Paneer' },
     { id: 'bread-bakery', name: 'Bread & Bakery', desc: 'Daily Baked' },
-    { id: 'eggs', name: 'Farm Fresh Eggs', desc: 'Tray & Box' }
+    { id: 'butter-cheese', name: 'Cheese & Spreads', desc: 'Slices & Cubes' }
   ];
 
   return (

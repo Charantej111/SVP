@@ -28,7 +28,7 @@ const STORE_SLIDES = [
     description: "Temperature-controlled dairy coolers storing fresh milk packets, curd, paneer, butter, bread, and breakfast items every morning.",
     image: "/Banner_3.png",
     badge: "Fresh Daily Batch",
-    highlights: ["Heritage & Amul Milk", "Fresh Paneer & Butter", "Daily Bread & Eggs"]
+    highlights: ["Heritage & Amul Milk", "Fresh Paneer & Butter", "Daily Bread & Bakery"]
   }
 ];
 

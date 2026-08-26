@@ -15,7 +15,7 @@ export const QuickActions = ({ onNavigate }) => {
     {
       id: 'fresh',
       title: 'Fresh & Dairy',
-      subtitle: 'Milk, bread & mandis',
+      subtitle: 'Milk, curd & bakery',
       icon: Sparkles,
       iconBg: 'bg-emerald-50 text-emerald-700',
       action: () => onNavigate('shop')
