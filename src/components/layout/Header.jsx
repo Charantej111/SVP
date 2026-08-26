@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { ShoppingBag, Search, MapPin, ChevronDown, User } from 'lucide-react';
 import { STORE_CONFIG } from '../../config/storeConfig';
 import { useCart } from '../../context/CartContext';
@@ -9,8 +9,36 @@ export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuer
   const { totalItemsCount, subtotal, openCart, userLocation, deliveryLocation, openLocationModal } = useCart();
   const { user, isAuthenticated, openCustomerAuthModal } = useAuth();
 
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef(null);
+
   const displayLocation = deliveryLocation?.shortAddress || userLocation || "Add your location";
   const displayShortMobile = (deliveryLocation?.shortAddress || userLocation || "Location").split(',')[0].trim();
+
+  const handleLogoClick = () => {
+    clickCountRef.current += 1;
+
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+
+    // Secret 3-tap shortcut to open Admin Portal
+    if (clickCountRef.current >= 3) {
+      clickCountRef.current = 0;
+      setCurrentView('admin');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    clickTimerRef.current = setTimeout(() => {
+      // Normal single click -> Home
+      if (clickCountRef.current === 1) {
+        setCurrentView('home');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      clickCountRef.current = 0;
+    }, 280);
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-[#E2E2E7] shadow-2xs w-full max-w-full overflow-x-hidden">
@@ -19,10 +47,10 @@ export const Header = ({ currentView, setCurrentView, searchQuery, setSearchQuer
         {/* Main Single-Row Header Layout (Logo, Location, Search, Sign In, Cart) */}
         <div className="flex items-center justify-between gap-2.5 sm:gap-4">
           
-          {/* Left: Brand Logo & Single Brand Name */}
+          {/* Left: Brand Logo & Single Brand Name (Triple-tap opens Admin) */}
           <button 
-            onClick={() => { setCurrentView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="flex items-center gap-2 shrink-0 text-left cursor-pointer focus:outline-none"
+            onClick={handleLogoClick}
+            className="flex items-center gap-2 shrink-0 text-left cursor-pointer focus:outline-none select-none"
           >
             <img 
               src="/logo.png" 

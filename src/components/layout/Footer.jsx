@@ -71,13 +71,19 @@ export const Footer = ({ setCurrentView, onSelectDepartment }) => {
               >
                 Contact
               </button>
+              <button
+                onClick={() => handleNav('admin')}
+                className="text-left text-gray-500 hover:text-emerald-400 font-semibold transition-colors cursor-pointer"
+              >
+                Staff Portal
+              </button>
             </div>
           </div>
 
-          {/* Col 3: Contact & Order */}
-          <div className="space-y-2">
+          {/* Col 3: Contact & Directions */}
+          <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-2.5">
-              Contact Store
+              Store Help & Orders
             </h4>
             <div className="space-y-2 text-xs">
               <a 
@@ -85,7 +91,7 @@ export const Footer = ({ setCurrentView, onSelectDepartment }) => {
                 className="flex items-center gap-2 hover:text-white transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>Call: {STORE_CONFIG.contact.formattedPhone}</span>
+                <span>Call Store: {STORE_CONFIG.contact.formattedPhone}</span>
               </a>
 
               <a 
@@ -114,8 +120,15 @@ export const Footer = ({ setCurrentView, onSelectDepartment }) => {
 
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-3 text-center sm:text-left">
-          <div>
-            © {new Date().getFullYear()} {STORE_CONFIG.name}. All rights reserved.
+          <div className="flex items-center gap-2 justify-center sm:justify-start">
+            <span>© {new Date().getFullYear()} {STORE_CONFIG.name}.</span>
+            <span>•</span>
+            <button
+              onClick={() => handleNav('admin')}
+              className="text-gray-500 hover:text-emerald-400 font-medium transition-colors cursor-pointer"
+            >
+              Staff Portal
+            </button>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-end text-gray-500">
